@@ -10,7 +10,7 @@ city_code.txt：城市中文名与三字码对应文件
 
 config.ini：配置文件
 
-12306.py：主程序
+test.py：主程序
 
 ### 环境说明
 
