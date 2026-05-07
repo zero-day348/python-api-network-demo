@@ -6,10 +6,10 @@
 
 """
 Usage:
-    python 12306.py -c <configpath>
+    python test.py -c <configpath>
 Example:
-    python 12306.py -c /Users/Administrator/PycharmProjects/12306Python/config.ini
-    python 12306.py
+    python test.py -c /Users/Administrator/PycharmProjects/12306Python/config.ini
+    python test.py
 """
 
 # Selenium 4.x 核心依赖：Service类指定驱动路径
