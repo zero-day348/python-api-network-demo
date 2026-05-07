@@ -8,7 +8,7 @@
 Usage:
     python test.py -c <configpath>
 Example:
-    python test.py -c /Users/Administrator/PycharmProjects/12306Python/config.ini
+    python test.py 
     python test.py
 """
 
@@ -32,7 +32,7 @@ import os
 
 
 class hackTickets(object):
-    """12306购票类"""
+    """购票类"""
 
     """读取配置文件（从config.ini获取账号、车次、席别等信息）"""
 
@@ -53,7 +53,7 @@ class hackTickets(object):
         self.username = cp.get("login", "username")
         self.passwd = cp.get("login", "password")
 
-        # 城市信息（转换为12306识别的编码格式）
+        # 城市信息（转换为识别的编码格式）
         starts_city = cp.get("cookieInfo", "starts")
         self.starts = self.convertCityToCode(starts_city).encode('unicode_escape').decode("utf-8").replace("\\u",
                                                                                                            "%u").replace(
@@ -75,7 +75,7 @@ class hackTickets(object):
         self.login_url = cp.get("urlInfo", "login_url")  # 登录页面URL
         self.initmy_url = cp.get("urlInfo", "initmy_url")  # 个人中心URL
 
-        # 席别配置（映射12306席别编码）
+        # 席别配置（映射席别编码）
         seat_type = cp.get("confirmInfo", "seat_type")
         self.seatMap = {
             "硬座": "1", "硬卧": "3", "软卧": "4", "一等软座": "7",
@@ -96,7 +96,7 @@ class hackTickets(object):
         args = parser.parse_args()
         self.readConfig(args.config) if args.config else self.readConfig()
 
-    """加载城市编码映射（从city_code.txt读取中文城市与12306编码的对应关系）"""
+    """加载城市编码映射（从city_code.txt读取中文城市与 编码的对应关系）"""
 
     def loadCityCode(self):
         print("映射出发地、目的地...")
@@ -119,7 +119,7 @@ class hackTickets(object):
                 city_codes[parts[0]] = parts[0] + "," + parts[1].strip()
         return city_codes
 
-    """将中文城市名转换为12306识别的编码"""
+    """将中文城市名转换为 识别的编码"""
 
     def convertCityToCode(self, c):
         try:
@@ -134,12 +134,12 @@ class hackTickets(object):
         self.city_codes = self.loadCityCode()
         self.loadConfig()
 
-    """登录逻辑（模拟人工操作，绕过12306反爬）"""
+    """登录逻辑（模拟人工操作，绕过 反爬）"""
 
     def login(self):
         print("开始登录...")
-        # 1. 先访问12306首页建立正常会话（避免直接登录被拦截）
-        self.driver.get("https://www.12306.cn/index/")
+        # 1. 先访问 首页建立正常会话（避免直接登录被拦截）
+        self.driver.get("https://www. .cn/index/")
         sleep(2)
 
         # 2. 点击首页"登录"按钮（模拟人工操作路径）
@@ -165,7 +165,7 @@ class hackTickets(object):
             sleep(1)
         except Exception as e:
             print(u"填充账号密码异常：%s，尝试备用定位..." % str(e))
-            # 备用定位：兼容12306页面更新后的元素变化
+            # 备用定位：兼容 页面更新后的元素变化
             username_input = self.driver.find_element(By.NAME, "loginUserDTO.user_name")
             for char in self.username:
                 username_input.send_keys(char)
@@ -187,7 +187,7 @@ class hackTickets(object):
             if "login" not in self.driver.current_url.lower():
                 print(u"登录成功！")
                 # 自动跳转到首页，避免停留在登录提示页
-                self.driver.get("https://www.12306.cn/index/")
+                self.driver.get("https://www. .cn/index/")
                 sleep(2)
                 break
             # 超时处理
@@ -301,7 +301,7 @@ class hackTickets(object):
                 print(u"预订异常：", str(e))
                 sleep(1)
 
-    """选择乘车人（适配12306当前页面，显式等待更稳定）"""
+    """选择乘车人（适配 当前页面，显式等待更稳定）"""
     def selUser(self):
         print(u'选择乘客...')
         for user in self.users:
@@ -309,7 +309,7 @@ class hackTickets(object):
                 # 显式等待10秒：等待乘车人复选框出现（避免页面加载延迟）
                 user_box = WebDriverWait(self.driver, 10).until(
                     EC.presence_of_element_located(
-                        # 新XPath：适配12306当前乘车人列表结构
+                        # 新XPath：适配 当前乘车人列表结构
                         (By.XPATH,
                          f"""//ul[@id='normal_passenger_id']//li[contains(., '{user}')]//input[@type='checkbox']"""
                     )
@@ -321,7 +321,7 @@ class hackTickets(object):
                 print(f"✅ 成功选择乘客：{user}")
             except Exception as e:
                 print(u"❌ 未找到乘客：%s（异常：%s）" % (user, str(e)))
-                print(u"   请检查：1. 乘客名是否与12306完全一致（无空格/错别字）；2. 该乘客是否已添加到12306常用联系人")
+                print(u"   请检查：1. 乘客名是否与 完全一致（无空格/错别字）；2. 该乘客是否已添加到 常用联系人")
 
     """选择席别（如二等座、硬卧）"""
     def confirmOrder(self):
@@ -448,7 +448,7 @@ class hackTickets(object):
             self.driver.quit()
 
 if __name__ == '__main__':
-    print("===========hack12306 begin===========")
+    print("===========hack  begin===========")
     # 解决Windows中文显示乱码
     if sys.platform == 'win32':
         import ctypes
