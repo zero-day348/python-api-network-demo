@@ -1,6 +1,6 @@
-## python抢票程序—12306
+## Python 网络接口逆向、会话保持、多线程请求练手项目
 
-python 3.11版12306自动抢票程序，利用selenium自动操作浏览器进行购票操作
+python 3.11，利用selenium自动操作浏览器进行购票操作
 
 ### 文件说明
 
@@ -24,7 +24,7 @@ pip install selenium
 
 0.准备合适版本的chrome.exe和chromedriver.exe（下载地址：https://vikyd.github.io/download-chromium-history-version/#/）
 
-1.提前将待购票的乘车人姓名加入登录的12306账号里
+1.提前将待购票的乘车人姓名加入登录的账号里
 
 2.按照注释说明根据需要修改config.ini文件
 
